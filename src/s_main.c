@@ -356,6 +356,7 @@ static char *(usagemessage[]) = {
 
 #ifdef USEAPI_JACK
 "-jack            -- use JACK audio API\n",
+"-jackname <name> -- a name for your JACK client\n",
 "-jacknoauto      -- don't make any automatic connections to the jack graph\n",
 #endif
 
@@ -684,10 +685,19 @@ int sys_argparse(int argc, char **argv)
             sys_set_audio_api(API_JACK);
             argc--; argv++;
         }
+<<<<<<< HEAD
         else if (!strcmp(*argv, "-jacknoauto"))
         {
             jack_autoconnect(0);
             argc--; argv++;
+=======
+        else if (!strcmp(*argv, "-jackname") && (argc > 1))
+        {
+            if (argc > 1)
+                jack_client_name(argv[1]);
+            else goto usage;
+            argc -= 2; argv +=2;
+>>>>>>> feature/jackname
         }
 #endif
 #ifdef USEAPI_PORTAUDIO
